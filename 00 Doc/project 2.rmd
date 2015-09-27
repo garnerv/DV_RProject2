@@ -1,1 +1,20 @@
-View()
+---
+title: "Project 2: Collegiate CSV file"
+output:
+  html_document:
+    pandoc_args: [
+      "+RTS", "-K64m",
+      "-RTS"
+    ]
+---
+We are pulling from a csv file of US collegiate statistics.  The file had plenty of extra data we narrowed down to show certain correllations.
+
+###Reproducing Our Work:
+1. Create a GitHub repository for the project.
+2. Create the folders for your project.
+3. Find a csv file for statistical comparisons.
+4. Make the data tables in SQL Developer.
+5. Build an html file to document these steps.
+
+
+Use this html file to present a visual story about your data and what you discovered about your data using visualization techniques. 
