@@ -1,10 +1,10 @@
-setwd("/Users/Garner/Documents/DataVisualization/DV_RProject2")
-file_path <- "Diamonds.csv"
-df <- rename(diamonds, tbl = table) # table is a reserved word in Oracle so rename it to tbl.
-
+setwd("/Users/Garner/Documents/DataVisualization/DV_RProject2/01 Data")
+file_path <- "collegestats.csv"
 # str(df) # Uncomment this and  run just the lines to here to get column types to use for getting the list of measures.
 
-measures <- c("carat", "depth", "tbl", "price", "x", "y" , "z")
+df <- read.csv(file_path, stringsAsFactors = FALSE)
+
+measures <- c("graduationRate", "tuitionFees1314", "enrollmentTotal", "studentFacultyRatio", "PFirstTimeUGAnyAid", "PFirstTimeUGAnyGrantAid", "avgAmtFirstTimeUGGrantAid", "PFirstTimeUGFedGrantAid", "avgAmtFirstTimeUGFed", "PFirstTimeUGPell", "avgAmtFirstTimeUGPell", "PFirstTimeUGOtherFed", "avgAmtFirstTimeUGOthFed", "PFirstTimeUGStateGrant", "avgAmtFirstTimeUGStateGrant", "PFirstTimeUGInstituteGrant", "avgAmtFirstTimeUGInsGrant", "PFirstTimeUGLoanAid", "avgAmtFirstTimeUGLoanAid", "PFirstTimeUGFederalLoan", "avgAmtFirstTimeUGFedLoan", "PFirstTimeUGOtherLoan", "avgAmtFirstTimeUGOthLoan")
 #measures <- NA # Do this if there are no measures.
 
 # Get rid of special characters in each column.
@@ -28,12 +28,12 @@ if( length(measures) > 1 || ! is.na(dimensions)) {
 # The following is an example of dealing with special cases like making state abbreviations be all upper case.
 # df["State"] <- data.frame(lapply(df["State"], toupper))
 
-# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions
-if( length(measures) > 1 || ! is.na(measures)) {
-  for(m in measures) {
-    df[m] <- data.frame(lapply(df[m], gsub, pattern="[^--.0-9]",replacement= ""))
-  }
-}
+#Get rid of all characters in measures except for numbers, the - sign, and period.dimensions
+#if( length(measures) > 1 || ! is.na(measures)) {
+#  for(m in measures) {
+#    df[m] <- data.frame(lapply(df[m], gsub, pattern="[^--.0-9]",replacement= ""))
+#  }
+#}
 
 write.csv(df, paste(gsub(".csv", "", file_path), ".reformatted.csv", sep=""), row.names=FALSE, na = "")
 
@@ -44,6 +44,7 @@ if( length(measures) > 1 || ! is.na(dimensions)) {
     sql <- paste(sql, paste(d, "varchar2(4000),\n"))
   }
 }
+
 if( length(measures) > 1 || ! is.na(measures)) {
   for(m in measures) {
     if(m != tail(measures, n=1)) sql <- paste(sql, paste(m, "number(38,4),\n"))
