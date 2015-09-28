@@ -29,7 +29,11 @@ source("../01 Data/summary.R", echo = TRUE)
 ```
 
 ###Plot #1:
+SQL used to isolate the data for this dataframe selected the entire table and excluded universities with tutition and fee values for the 2013-2014 academic year of zero dollars.
 
+This plot shows college statistics for tuition and fees against a student factulty ratio grouped by the classification of the college. The three types of universities in this data set are private for profit, private not-for-profit, and public. The visualization shows that there may be a trend of smaller class sizes at universities that charge higher tuition and fees. However, it is also apparent that this trend does not continue indefinitely, and that it appears there is a leveling off point of class sizes in the mid-range of each group's tuition and fees. 
+
+Certainly, there are less extremes in class sizes in universities with higher tuition and fees, but there is not enough evidence to support that to get a university with a small student:faculty ratio, one must pay more money.
 ```{r}
 source("../02 Data Wrangling/plot1.R", echo = TRUE)
 ```
