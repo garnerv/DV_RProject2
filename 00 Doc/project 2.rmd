@@ -7,14 +7,31 @@ output:
       "-RTS"
     ]
 ---
-We are pulling from a csv file of US collegiate statistics.  The file had plenty of extra data we narrowed down to show certain correllations.
+For analysis, we are using a database of US college financial aid information made available through the US Department of Education College Affordability and Transparency Center. We hope to visualize some trends present in current college financial aid distributions throughout the nation. "Null" data points represent statstics that were unreported by their respective universities.
 
 ###Reproducing Our Work:
 1. Create a GitHub repository for the project.
 2. Create the folders for your project.
-3. Find a csv file for statistical comparisons.
-4. Make the data tables in SQL Developer.
-5. Build an html file to document these steps.
+3. Find a csv file for statistical comparisons. Our CSV file was obtained by selecting the appropriate options from the website: http://collegecost.ed.gov/catc/Default.aspx
+4. Clean up variable names using "college data wranging.r" file and use output to create SQL table in SQL Developer.
+5. Import CSV into SQL Developer
+6. Build an html file to document these steps.
+
+Before generating plots, we run the 'require.r' file to make sure the necessary packages are in place.
+```{r}
+source("../require.R")
+```
+
+###Summary and Subset:
+The SQL used on the table selects all colleges where the tutition and fees for the 2013-2014 academic year were not zero. This selection means that schools such as the "United States Air Force Academy" were not included in this analysis because they do not have tutition and fees.
+```{r, echo=TRUE}
+source("../01 Data/summary.R", echo = TRUE)
+```
+
+###Plot #1:
+
+```{r}
+source("../02 Data Wrangling/plot1.R", echo = TRUE)
+```
 
 
-Use this html file to present a visual story about your data and what you discovered about your data using visualization techniques. 

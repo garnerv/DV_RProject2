@@ -4,18 +4,16 @@ require(dplyr)
 df <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query="select * from COLLEGESTATS"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521/PDBF15DV.usuniversi01134.oraclecloud.internal', USER='cs329e_gv4353', PASS='orcl_gv4353', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
 head(df)
 
-# select
-select(diamonds, cut, clarity) %>% tbl_df # Equivalent SQL: select cut, clarity from diamonds;
-diamonds %>% select(cut, clarity) %>% tbl_df
-diamonds %>% select(., cut, clarity) %>% tbl_df
-diamonds %>% select(color:price) %>% tbl_df # Equivalent SQL: none
+df %>% select(TUITIONFEES1314, AVGAMTFIRSTTIMEUGGRANTAID) %>% tbl_df
+df %>% select(., TUITIONFEES1314, AVGAMTFIRSTTIMEUGGRANTAID) %>% tbl_df
+df %>% select(PFIRSTTIMEUGANYAID:AVGAMTFIRSTTIMEUGGRANTAID) %>% tbl_df # Equivalent SQL: none
 #all of the columns between color and price
-diamonds %>% select(-cut, -clarity) %>% tbl_df # Equivalent SQL: none
-x <- diamonds %>% select(cut, clarity) %>% tbl_df #assign data frame to x
+df %>% select(-cut, -clarity) %>% tbl_df # Equivalent SQL: none
+x <- df %>% select(cut, clarity) %>% tbl_df #assign data frame to x
 x
 
 # filter
-diamonds %>% select(cut, clarity) %>% filter(cut == "Good") %>% tbl_df # Equivalent SQL: 
+df %>% select(PUBLICPRIVATE, GRADUATIONRATE) %>% filter(PUBLICPRIVATE == "Public") %>% tbl_df # Equivalent SQL: 
 # select cut, clarity from diamonds where cut = 'Good'
 diamonds %>% select(cut, clarity) %>% filter(cut %in% c("Good", "Fair")) %>% tbl_df #cut to be in the collection of good and fair     where cut = 'Good' or cut = 'Fair'; we need to study the entire workflow in the quiz
 #send %>% into View instead of into tbl_df
@@ -88,13 +86,16 @@ c(1,1:5) %>% cume_dist()
 # c(TRUE, TRUE, FALSE, FALSE, TRUE) %>% cumall()
 # c(FALSE, TRUE, FALSE, FALSE, TRUE) %>% cumany()
 # Now let's try them in the mutate function
-diamonds %>% mutate(price_percent = cume_dist(price)) %>% arrange(desc(price_percent)) %>% tbl_df
+what <- df %>% mutate(anyaid_percent = cume_dist(PFIRSTTIMEUGANYAID)) %>% arrange(desc(anyaid_percent)) %>% tbl_df
+View(what)
 #price in that row, what the percentile for that price is in the overall dataset
 
 # select d.*, cume_dist() OVER (order by price) cume_dist from diamonds d order by 11 desc;
 # select d.*, cume_dist() OVER (PARTITION BY cut order by price) cume_dist from (select * from diamonds where rownum < 100) d order by cut desc, 11 desc;
 
-bottom20_diamonds <- diamonds %>% mutate(price_percent = cume_dist(price)) %>% filter(price_percent <= .20) %>% arrange(desc(price_percent)) %>% tbl_df
+p_anyaid <- df %>% mutate(anyaid_percent = cume_dist(PFIRSTTIMEUGANYAID)) %>% filter(anyaid_percent <= 97 ) %>% arrange(desc(anyaid_percent)) %>% tbl_df
+p_anyaid
+View(p_anyaid)
 diamonds %>% mutate(price_percent = cume_dist(price)) %>% filter(price_percent >= .80) %>% arrange(desc(price_percent)) %>% tbl_df
 top20_diamonds <- diamonds %>% mutate(price_percent = cume_dist(price)) %>% filter(price_percent >= .80) %>% arrange(desc(price_percent)) %>% tbl_df
 diamonds %>% mutate(price_percent = cume_dist(price)) %>% filter(price_percent <= .20 | price_percent >= .80) %>% ggplot(aes(x = price, y = carat)) + geom_point(aes(color=cut))
@@ -119,4 +120,4 @@ diamonds %>% group_by(cut,color) %>% summarise(mean = mean(x), sum = sum(x,y,z),
 diamonds %>% group_by(cut,color) %>% summarise(mean = mean(x), sum = sum(x,y,z), n = n()) %>% arrange(n)
 diamonds %>% group_by(cut,color) %>% summarise(mean = mean(x), sum = sum(x,y,z), n = n()) %>% arrange(desc(n), cut, color)
 
-diamonds %>% group_by(cut, color, clarity) %>% summarise(mean_carat = mean(carat)) %>% ggplot(aes(x=cut, y=mean_carat, color=color)) + geom_point() + facet_wrap(~clarity)
+df %>% group_by(PUBLICPRIVATE) %>% summarise(mean_carat = mean(carat)) %>% ggplot(aes(x=cut, y=mean_carat, color=color)) + geom_point() + facet_wrap(~clarity)
