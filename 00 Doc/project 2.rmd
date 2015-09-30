@@ -31,9 +31,17 @@ source("../01 Data/summary.R", echo = TRUE)
 ###Plot #1:
 SQL used to isolate the data for this dataframe selected the entire table and excluded universities with tutition and fee values for the 2013-2014 academic year of zero dollars.
 
-This plot shows college statistics for tuition and fees against a student factulty ratio grouped by the classification of the college. The three types of universities in this data set are private for profit, private not-for-profit, and public. The visualization shows that there may be a trend of smaller class sizes at universities that charge higher tuition and fees. However, it is also apparent that this trend does not continue indefinitely, and that it appears there is a leveling off point of class sizes in the mid-range of each group's tuition and fees. 
+This plot uses some advanced piping techniques in R including the use of the cumulative distribution function. The visualization shows the average dollar amount of institutional grant money offered to college freshmen broken down by percentile vs. the school's tuition and fees for the 2013-2014 academic school year.
 
-Certainly, there are less extremes in class sizes in universities with higher tuition and fees, but there is not enough evidence to support that to get a university with a small student:faculty ratio, one must pay more money.
+Before analyzing this visualization, it is important to note that our data includes 1216 private not-for-profit schools, 560 public schools, and 303 private-for-profit schools.
+
+There are several things going on in this first visualization. In the bottom quartile of the data, there are more private-for-profit universities than any other type of university. Private not-for-profit universities seem to appear in least frequency in the top quartile of the data. In the top half of the data, there appear to be more public universities than any other type of university.
+
+Questions that arise from this visualization include:
+1. Public universities seem to be offering institutional grants worth more than private not-for-profit universities, despite the fact that most all private not-for-profit schools have higher tuition and fees than their public counterparts. Are private not-for-profit universities overcharging for their services?
+
+2. Private for-profit universities seem to appear most often in the top half of all universities, meaning they offer fairly weighty grants  to their freshmen, but their tuition and fees are not as high as not-for-profit colleges. What's going on here?
+
 ```{r}
 source("../02 Data Wrangling/plot1.R", echo = TRUE)
 ```

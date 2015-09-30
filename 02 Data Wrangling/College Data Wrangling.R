@@ -80,7 +80,7 @@ c(1:10) %>% ntile(4) # bucket edges are rounded
 diamonds %>% mutate(ntile_z = ntile(z,100)) %>% arrange(desc(ntile_z)) %>% tbl_df
 diamonds %>% mutate(ntile_z = ntile(z,100)) %>% group_by(ntile_z) %>% summarise(n=n()) %>% tbl_df
 
-c(1,1,2,5,4,3,5) %>% cume_dist()
+c(1,1,2,5,4,3,5) %>% cume_dist() %>% View
 c(1:5) %>% cume_dist()
 c(1,1:5) %>% cume_dist()
 # c(TRUE, TRUE, FALSE, FALSE, TRUE) %>% cumall()
