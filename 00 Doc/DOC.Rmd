@@ -28,6 +28,12 @@ The SQL used on the table selects all colleges where the tutition and fees for t
 source("../01 Data/summary.R", echo = TRUE)
 ```
 
+###Our Extract, Transform, Load file:
+Based off of Professor Cannata's R_ETL.R file we loaded our csv file into our Oracle account.
+```{r}
+source("../02 Data Wrangling/R_ETL.college.R", echo = TRUE)
+```
+
 ###Plot #1:
 SQL used to isolate the data for this dataframe selected the entire table and excluded universities with tutition and fee values for the 2013-2014 academic year of zero dollars.
 
@@ -44,6 +50,22 @@ Questions that arise from this visualization include:
 
 ```{r}
 source("../02 Data Wrangling/plot1.R", echo = TRUE)
+```
+
+###Plot 2:
+SQL used to isolate the data for this dataframe selected the entire table and excluded universities with tutition and fee values for the 2013-2014 academic year of zero dollars.
+
+This plot uses some advanced piping techniques in R including the use of the cumulative distribution function. The visualization shows the average dollar amount of federal loan money offered to college freshmen grouped by the relative size of enrollment vs. the school's tuition and fees for the 2013-2014 academic school year.
+
+This interesting plot shows three distinct things:
+1. Private for-profit universities freshmen receive the most amount amount of federal loan money no matter the size.  Is this
+
+2. Public universities are relatively low on both tuition and federal aid provided for their freshmen
+
+3. The average tuition is slightly lower for 'large' universities than the other two sizes.  I have no idea why.
+
+```{r}
+source("../02 Data Wrangling/plot2.R", echo = TRUE)
 ```
 
 ###Plot #3:

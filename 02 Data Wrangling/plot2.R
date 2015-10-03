@@ -5,9 +5,9 @@ df <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?que
 df <- df %>% mutate(Enroll_ment = cume_dist(ENROLLMENTTOTAL))
 levels <- c(0, .33, .66, 1)
 labels <- c('small', 'medium', 'large')
-df <- df %>% filter(ENROLLMENTTOTAL != "null") %>% mutate(x = cut(Enroll_ment, levels, labels = labels)) %>% View
+df <- df %>% filter(ENROLLMENTTOTAL != "null") %>% mutate(x = cut(Enroll_ment, levels, labels = labels)) 
 
-df %>% group_by(x, PUBLICPRIVATE) %>% summarise(mean_loans = mean(as.numeric(AVGAMTFIRSTTIMEUGINSGRANT)), n=n(), mean_tuition = mean(as.numeric(TUITIONFEES1314))) %>% ggplot(aes(x=x, y=mean_tuition, color = PUBLICPRIVATE)) + geom_point(size = 5)
+df %>% group_by(x, PUBLICPRIVATE) %>% summarise(mean_institution_grants = mean(as.numeric(AVGAMTFIRSTTIMEUGFEDLOAN)), n=n(), mean_tuition = mean(as.numeric(TUITIONFEES1314))) %>% ggplot(aes(x=mean_institution_grants, y=mean_tuition, color = PUBLICPRIVATE)) + geom_point(size = 3) + facet_wrap(~x) + labs(title='Mean Average Grant Size\n vs. Mean Tuition and Fees (Year 13-14)\n, Grouped by Enrollment Size') + labs(x="Average amount of first time instituion grants", y=paste("Tuition and Fees for 2013-2014 Academic School Year"))
 
 #df %>% select(PUBLICPRIVATE, GRADUATIONRATE, AVGAMTFIRSTTIMEUGFED, STUDENTFACULTYRATIO) %>% filter(PUBLICPRIVATE == "Public") %>% mutate(ntile_ratio = ntile(STUDENTFACULTYRATIO, 4)) %>% arrange(desc(ntile_ratio)) %>% mutate(UG_FED = cume_dist(AVGAMTFIRSTTIMEUGFED)) %>% arrange(desc(GRADUATIONRATE)) %>% View 
 
